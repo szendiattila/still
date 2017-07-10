@@ -23,7 +23,11 @@ class TaskController extends Controller
      */
     public function index(TaskRepository $taskRepo)
     {
-        $tasks = $taskRepo->sortedList()->paginate(6);
+        $filter = request('search');
+
+        $tasks = $filter
+        ? $taskRepo->getFilteredList($filter)->get()
+        : $taskRepo->getAll()->get();
 
         return view('task.index', compact('tasks'));
     }

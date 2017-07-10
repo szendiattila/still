@@ -9,8 +9,19 @@
 
                     <div class="panel-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="kereső..." id="search">
+                            <form method="GET" accept-charset="utf-8">
+                                <div class="input-group">
+                                    <input type="search" class="form-control" name="search" placeholder="kereső..."
+                                           id="search">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><span
+                                                    class="glyphicon glyphicon-search"></span></button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
+
+                        <hr>
 
                         <div class="form-group">
                             <button id="new-task-btn" class="btn btn-primary form-control"><span
@@ -31,6 +42,7 @@
 
                                             <div class="info">
                                                 <div><span class="task-name">{{ $task->name }}</span>
+
                                                     <div class="pull-right">
                                                         {{ $task->created_at->diffForHumans() }}
                                                     </div>
@@ -43,9 +55,9 @@
                                             </div>
 
                                             {{--<div>--}}
-                                                {{--@if($task->finished)--}}
-                                                    {{--<span class="glyphicon glyphicon-ok text-success"></span>--}}
-                                                {{--@endif--}}
+                                            {{--@if($task->finished)--}}
+                                            {{--<span class="glyphicon glyphicon-ok text-success"></span>--}}
+                                            {{--@endif--}}
                                             {{--</div>--}}
 
                                             @include('task.partials._action-buttons')
@@ -56,8 +68,6 @@
                             @else
                                 <span class="alert alert-danger">Nincs megjelenítendő feladat!</span>
                             @endif
-
-                            {!! $tasks->render() !!}
                         </div>
                     </div>
                 </div>
@@ -68,7 +78,7 @@
 
 @section('script')
     <script>
-        $(function(){
+        $(function () {
             $(document).on('click', '.finish-task-btn', function () {
                 $.ajaxSetup({
                     headers: {
@@ -83,7 +93,7 @@
                         _method: 'patch',
                     },
                     success: function (task) {
-                        if(task.finished === true){
+                        if (task.finished === true) {
                             finishBtn.html('<span class="glyphicon glyphicon-check text-success"></span> elkészült');
                         } else {
                             finishBtn.html('<span class="glyphicon glyphicon-unchecked text-danger"></span> még nem ' +
