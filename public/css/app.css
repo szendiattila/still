@@ -8357,7 +8357,8 @@ button.close {
 }
 
 .delete-btn,
-.modify-btn {
+.modify-task-btn,
+.finish-task-btn {
   cursor: pointer;
 }
 

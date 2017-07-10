@@ -65,6 +65,15 @@ class TaskController extends Controller
         return $task->delete() ? $task : 0;
     }
 
+    public function toggle(Task $task)
+    {
+        $data = $task->finished ? false : true;
+
+        $task->update(['finished' => $data]);
+
+        return $task;
+    }
+
     /**
      * @param TaskRequest $request
      * @return array

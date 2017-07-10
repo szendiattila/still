@@ -1,5 +1,5 @@
 $(function(){
-    $(document).on('click', '.delete-btn', function () {
+    $(document).on('click', '.delete-task-btn', function () {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
