@@ -9,7 +9,7 @@ class TaskRepository
 {
     public function getAll()
     {
-        return Task::orderBy('finished')->latest()->whereHas('user',function($query){
+        return Task::orderBy('finished')->latest()->whereHas('user', function($query){
             $query->whereUserId(Auth::user()->id);
         });
     }

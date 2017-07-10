@@ -1,5 +1,11 @@
 $(function () {
     $('#new-task-btn').click(function () {
+        $(this).attr('class', function(i, text){
+            return text === "btn btn-primary form-control"
+                ? "btn btn-danger form-control"
+                : "btn btn-primary form-control";
+        });
+
         $("#add-form").toggle({opacity: '0'}, 'slow')
     });
 

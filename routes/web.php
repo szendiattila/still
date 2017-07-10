@@ -18,4 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('tasks', 'TaskController', ['except' => ['create', 'edit', 'show']]);
-Route::patch('tasks/{task}/toggle', 'TaskController@toggle');
+Route::patch('tasks/{task}/toggle', 'TaskController@toggleFinished');
+Route::get('tasks/toggle-visibility', 'TaskController@toggleVisibility');

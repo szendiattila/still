@@ -13,11 +13,6 @@
             <div>{{ $task->description }}</div>
         @endif
 
-        {{--<div>--}}
-            {{--@if($task->finished)--}}
-                {{--<span class="glyphicon glyphicon-ok text-success"></span>--}}
-            {{--@endif--}}
-        {{--</div>--}}
     </div>
 
     @include('task.partials._action-buttons')

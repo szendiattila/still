@@ -1,7 +1,14 @@
-.delete-task-btn, .modify-task-btn, .finish-task-btn{
+.delete-task-btn, .modify-task-btn, .finish-task-btn, #toggle-visibility{
   cursor: pointer;
 }
 
 .modify-form{
   display: none;
+}
+
+#toggle-visibility{
+  color: #3097D1;
+}
+#toggle-visibility:hover{
+  text-decoration: underline;
 }

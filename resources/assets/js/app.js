@@ -24,3 +24,5 @@ require('./bootstrap');
 require('./task/create')
 require('./task/update')
 require('./task/destroy')
+require('./task/toggle-finished')
+require('./task/toggle-visibility')

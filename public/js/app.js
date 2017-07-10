@@ -746,7 +746,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(8);
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(40);
 
 
 /***/ }),
@@ -779,6 +779,8 @@ __webpack_require__(9);
 __webpack_require__(35);
 __webpack_require__(36);
 __webpack_require__(37);
+__webpack_require__(38);
+__webpack_require__(39);
 
 /***/ }),
 /* 9 */
@@ -31698,6 +31700,10 @@ module.exports = function spread(callback) {
 
 $(function () {
     $('#new-task-btn').click(function () {
+        $(this).attr('class', function (i, text) {
+            return text === "btn btn-primary form-control" ? "btn btn-danger form-control" : "btn btn-primary form-control";
+        });
+
         $("#add-form").toggle({ opacity: '0' }, 'slow');
     });
 
@@ -31790,7 +31796,7 @@ $(function () {
 /***/ (function(module, exports) {
 
 $(function () {
-    $(document).on('click', '.delete-btn', function () {
+    $(document).on('click', '.delete-task-btn', function () {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -31812,6 +31818,57 @@ $(function () {
 
 /***/ }),
 /* 38 */
+/***/ (function(module, exports) {
+
+$(function () {
+    $(document).on('click', '.finish-task-btn', function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var finishBtn = $(this);
+        $.ajax({
+            type: 'post',
+            url: '/tasks/' + finishBtn.attr('data-id') + '/toggle',
+            data: {
+                _method: 'patch'
+            },
+            success: function success(task) {
+                if (task.finished === true) {
+                    finishBtn.html('<span class="glyphicon glyphicon-check text-success"></span> elkészült');
+                } else {
+                    finishBtn.html('<span class="glyphicon glyphicon-unchecked text-danger"></span> még nem ' + 'készült el');
+                }
+            }
+        });
+    });
+});
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+$(function () {
+    $('#toggle-visibility').click(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'get',
+            url: '/tasks/toggle-visibility',
+            success: function success() {
+                window.location.reload(true);
+            }
+        });
+    });
+});
+
+/***/ }),
+/* 40 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

@@ -5,17 +5,27 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Feladatok</div>
+                    <div class="panel-heading">Feladatok
+                        <span class="pull-right" id="toggle-visibility">
+                            Elkészültek {{ Cookie::get('is-hidden') == null ? 'elrejtése' : 'mutatása' }}
+                        </span>
+                    </div>
 
                     <div class="panel-body">
                         <div class="form-group">
                             <form method="GET" accept-charset="utf-8">
                                 <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <a href="{{ url('/tasks') }}" class="btn btn-primary" title="alaphelyzetbe állítás" type="submit">
+                                            <span class="glyphicon glyphicon-home"></span>
+                                        </a>
+                                    </span>
                                     <input type="search" class="form-control" name="search" placeholder="kereső..."
                                            id="search">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="submit"><span
-                                                    class="glyphicon glyphicon-search"></span></button>
+                                        <button class="btn btn-default" type="submit">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
                                     </span>
                                 </div>
                             </form>
@@ -54,12 +64,6 @@
                                                 @endif
                                             </div>
 
-                                            {{--<div>--}}
-                                            {{--@if($task->finished)--}}
-                                            {{--<span class="glyphicon glyphicon-ok text-success"></span>--}}
-                                            {{--@endif--}}
-                                            {{--</div>--}}
-
                                             @include('task.partials._action-buttons')
 
                                         </li>
@@ -75,33 +79,3 @@
         </div>
     </div>
 @endsection
-
-@section('script')
-    <script>
-        $(function () {
-            $(document).on('click', '.finish-task-btn', function () {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                var finishBtn = $(this);
-                $.ajax({
-                    type: 'post',
-                    url: '/tasks/' + finishBtn.attr('data-id') + '/toggle',
-                    data: {
-                        _method: 'patch',
-                    },
-                    success: function (task) {
-                        if (task.finished === true) {
-                            finishBtn.html('<span class="glyphicon glyphicon-check text-success"></span> elkészült');
-                        } else {
-                            finishBtn.html('<span class="glyphicon glyphicon-unchecked text-danger"></span> még nem ' +
-                                    'készült el');
-                        }
-                    },
-                });
-            });
-        });
-    </script>
-@stop
